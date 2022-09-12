@@ -7,11 +7,11 @@ close all;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 DATASET_TYPE = 2; % 1--pair dataset 2--region dataset
 SAVE_FLAG = 1; % 0--not save 1--save 
-delta_sigma = -0.5; % v1--- 1+delta_sigma 比 1 小 v2--- 1+delta_sigma 比 1 大
+delta_sigma = +0.5; % v1--- 1+delta_sigma 比 1 小 v2--- 1+delta_sigma 比 1 大
 FIG_FLAG = 0; 
 region_r = 0.08; % region 的半径
-RESIZE_FLAG = 0;
-LEN = 66; % resize后的边长
+RESIZE_FLAG = 1;
+LEN = 64; % resize后的边长
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 2D FEM Model（正问题）
 % 建立真实轮廓 FEM
@@ -52,7 +52,7 @@ for i=1:saa
         fn=cat(1,fn,fn0);
     end
 end
-
+node_map = fn0_map;
 % 设置电流激励模式
 [stim, meas_sel] = mk_stim_patterns(16,1,'{ad}','{ad}',{},10);%最后一个电流强度,会影响最终重构效果
 imdl_2d.stimulation = stim;
@@ -137,7 +137,7 @@ img_1_reconstructed_SSA.name = 'solve by SSA';
 img_1_reconstructed_SSA.type = 'image';
 % resize
 if RESIZE_FLAG == 1
-    image_resized = resize_fem(img_1_reconstructed_SSA.node_data,node_map, inv2d.fwd_model);
+    image_resized = resize_fem(img_1_reconstructed_SSA.node_data, node_map, inv2d.fwd_model);
     image_data = image_resized(:);
 else
     image_data = img_1_reconstructed_SSA.node_data;
