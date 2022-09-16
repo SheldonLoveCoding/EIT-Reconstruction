@@ -4,3 +4,4 @@
 /Dataset/data/
 /Network/EITNN_train_test_log/
 /Network/model_saved/
+/Network/__pycache__/

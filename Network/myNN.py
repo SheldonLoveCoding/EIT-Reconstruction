@@ -39,7 +39,7 @@ class EITNet(nn.Module):
             nn.ConvTranspose2d(64, 1, kernel_size=(3, 3), padding=(1, 1))
         )
 
-    def forward(self, X, image_size):
+    def forward(self, X, image_size = 64):
         Y = self.fc_block(X)
         # print(Y.shape)
         Y_reshaped = torch.reshape(Y, (-1, 1, image_size, image_size))
