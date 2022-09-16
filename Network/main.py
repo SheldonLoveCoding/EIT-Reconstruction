@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    writer = SummaryWriter('./EITNN_train_test_log/log1')
+    writer = SummaryWriter('./EITNN_train_test_log/log2')
 
    # 加载数据集，训练：测试 = 4：1 image 在最终可视化的时候需要转置，中间运算不需要
     [train_dataset_nan, test_dataset_nan] = prepareDataset()

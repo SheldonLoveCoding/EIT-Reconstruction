@@ -9,14 +9,16 @@ DATASET_TYPE = 2; % 1--pair dataset 2--region dataset
 SAVE_FLAG = 1; % 0--not save 1--save 
 delta_sigma = +0.5; % v1--- 1+delta_sigma 比 1 小 v2--- 1+delta_sigma 比 1 大
 FIG_FLAG = 0; 
-region_r = 0.08; % region 的半径
+region_r = 0.5; % region 的半径
 RESIZE_FLAG = 1;
 LEN = 64; % resize后的边长
+dataname = 'test_';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 2D FEM Model（正问题）
 % 建立真实轮廓 FEM
 % imdl_2d= mk_common_model('d2C',16);
 load D:\01Project\NI_EIT_Fitts\EIT\MatlabForDrawEdgePicture\Data_001_shuzhi_Right
+node_map_008 = load('D:\01Project\EIT_Reconstruction\node_map_008.mat');
 scale_Out=0.005; ind_Out=20; %0.005;% 轮廓范围等比例缩小，某些数值合适，原因不明
 Out = [Data.Outer_Ring{1}.x   Data.Outer_Ring{1}.y]*scale_Out;%原始图片外围大圆
 Out=roundn(Out,-2);Out = Out(1:ind_Out:end,:);
@@ -137,7 +139,7 @@ img_1_reconstructed_SSA.name = 'solve by SSA';
 img_1_reconstructed_SSA.type = 'image';
 % resize
 if RESIZE_FLAG == 1
-    image_resized = resize_fem(img_1_reconstructed_SSA.node_data, node_map, inv2d.fwd_model);
+    image_resized = resize_fem(img_1_reconstructed_SSA.node_data, node_map_008.node_map, inv2d.fwd_model);
     image_data = image_resized(:);
 else
     image_data = img_1_reconstructed_SSA.node_data;
@@ -184,9 +186,9 @@ if SAVE_FLAG && (DATASET_TYPE == 1)
     end
 elseif SAVE_FLAG && (DATASET_TYPE == 2)
     if delta_sigma < 0
-        save(['allRegionDataset_v1_',num2str(RESIZE_FLAG),'.mat'],'allRegionDataset');disp('saved!!!');
+        save(['allRegionDataset_v1_',dataname,num2str(RESIZE_FLAG),'.mat'],'allRegionDataset');disp('saved!!!');
     else delta_sigma > 0
-        save(['allRegionDataset_v2_',num2str(RESIZE_FLAG),'.mat'],'allRegionDataset');disp('saved!!!');
+        save(['allRegionDataset_v2_',dataname,num2str(RESIZE_FLAG),'.mat'],'allRegionDataset');disp('saved!!!');
     end
 end
 toc

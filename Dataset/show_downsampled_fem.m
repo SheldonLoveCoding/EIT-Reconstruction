@@ -1,7 +1,7 @@
 function [] = show_downsampled_fem(hotmap)
 % % hotmap ÊÇresizeºóµÄÍ¼Ïñ
     if size(hotmap, 1) == 1
-        hotmap = reshape(hotmap, 66, 66);
+        hotmap = reshape(hotmap, 64, 64);
     end
     h = imagesc(hotmap); 
     grid on;

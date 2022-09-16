@@ -1,4 +1,6 @@
 # .gitignore
+/.idea/
 /.vscode/
-/Dataset/data/allRegionDataset_v1_1.mat
-/Dataset/data/allRegionDataset_v2_1.mat
+/Dataset/data/
+/Network/EITNN_train_test_log/
+/Network/model_saved/
